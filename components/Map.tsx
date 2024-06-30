@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import Mapbox, {
 	Camera,
+	CircleLayer,
 	Images,
 	LocationPuck,
 	MapView,
@@ -25,13 +26,38 @@ const Map = () => {
 				<Camera followUserLocation followZoomLevel={10} />
 				<LocationPuck pulsing={{ isEnabled: true }} />
 
-				<ShapeSource id="images" shape={imageFeatures}>
+				<ShapeSource id="images" cluster shape={imageFeatures}>
+					<SymbolLayer
+						id="cluster-count"
+						style={{
+							textField: ["get", "point_count"],
+							textSize: 18,
+							textColor: "white",
+							textPitchAlignment: "map",
+						}}
+					/>
+					<CircleLayer
+						id="clusters"
+						belowLayerID="cluster-count"
+						filter={["has", "point_count"]}
+						style={{
+							circlePitchAlignment: "map",
+							circleColor: "green",
+							circleRadius: 20,
+							circleOpacity: 1,
+							circleStrokeWidth: 2,
+							circleStrokeColor: "white",
+						}}
+					/>
+
 					<SymbolLayer
 						id="image-icons"
+						filter={["!", ["has", "point_count"]]}
 						style={{
 							iconImage: "pin",
 							iconSize: 0.1,
 							iconAllowOverlap: true,
+							iconAnchor: "bottom",
 						}}
 					/>
 					<Images images={{ pin }} />
