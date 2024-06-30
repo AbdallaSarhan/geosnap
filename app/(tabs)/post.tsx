@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function TabTwoScreen() {
+const Page = () => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Tab Two</Text>
 			<View style={styles.separator} />
 		</View>
 	);
-}
+};
+
+export default Page;
 
 const styles = StyleSheet.create({
 	container: {

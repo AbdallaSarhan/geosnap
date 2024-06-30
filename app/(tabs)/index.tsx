@@ -1,19 +1,19 @@
+import Map from "@/components/Map";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function TabOneScreen() {
+const Page = () => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Tab One</Text>
-			<View style={styles.separator} />
+			<Map />
 		</View>
 	);
-}
+};
+
+export default Page;
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
 	},
 	title: {
 		fontSize: 20,
