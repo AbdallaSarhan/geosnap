@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import "dotenv/config";
 
 const app = express();
 app.use(express.json());
@@ -10,9 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-mongoose.connect(
-	"mongodb+srv://root:abdalla@cluster0.qjz1dik.mongodb.net/quiqpost"
-);
+mongoose.connect(process.env.MONGODB_URL);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
