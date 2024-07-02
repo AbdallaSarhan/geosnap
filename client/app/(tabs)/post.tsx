@@ -1,9 +1,13 @@
+import ImageUpload from "@/components/ImageUpload";
+import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const Page = () => {
+	const [imageData, setImageData] = useState<any>([]);
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Tab Two</Text>
+			<ImageUpload setImagesData={setImageData} />
+
 			<View style={styles.separator} />
 		</View>
 	);
@@ -15,7 +19,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: "center",
-		justifyContent: "center",
+		// justifyContent: "center",
 	},
 	title: {
 		fontSize: 20,
