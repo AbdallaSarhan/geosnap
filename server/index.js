@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
+import postRoutes from "./routes/Post.js";
+import uploadRoutes from "./routes/Upload.js";
 
 const app = express();
 app.use(express.json());
@@ -19,6 +21,9 @@ db.once("open", () => {
 	console.log("Connected to MongoDB");
 });
 
-app.get("/items", (req, res) => {
-	res.json({ message: "Get all items" });
-});
+// app.get("/items", (req, res) => {
+// 	res.json({ message: "Get all items" });
+// });
+
+app.use("/posts", postRoutes);
+app.use("/upload", uploadRoutes);

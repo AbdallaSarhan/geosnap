@@ -11,6 +11,9 @@
 	"author": "Abdalla Sarhan",
 	"license": "ISC",
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.608.0",
+		"@aws-sdk/s3-request-presigner": "^3.608.0",
+		"aws-sdk": "^2.1652.0",
 		"body-parser": "^1.20.2",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
