@@ -1,13 +1,23 @@
 import mongoose from "mongoose";
 
-// Create a schema and model for posts
 const postSchema = new mongoose.Schema({
-	title: { type: String, required: true },
-	content: { type: String, required: true },
-	author: { type: String, required: true },
-	createdAt: { type: Date, default: Date.now },
+	locationData: {
+		coordinates: {
+			type: [Number], // Array of Numbers for latitude and longitude
+			required: true,
+		},
+		location: {
+			type: String, // Location name
+			required: true,
+		},
+	},
+	imageKey: {
+		type: String, // Reference to the image in S3
+		required: true,
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
 });
-
-const Post = mongoose.model("Post", postSchema);
-
-export default Post;
+export const Post = mongoose.model("Post", postSchema);

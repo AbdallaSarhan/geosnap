@@ -4,14 +4,9 @@ import {
 	GetObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-// import dotenv from "dotenv";
-
-// dotenv.config();
 
 // Configure the AWS SDK
 console.log(process.env.PORT);
-
-const s3Client = new S3Client({ region: process.env.AWS_S3_REGION });
 
 /**
  * Generate a pre-signed URL for uploading a file to S3
@@ -22,8 +17,12 @@ const s3Client = new S3Client({ region: process.env.AWS_S3_REGION });
  */
 
 export const generatePutPresignedUrl = async (key) => {
+	console.log(process.env.AWS_S3_REGION);
+
+	console.log({ key });
+	const s3Client = new S3Client({ region: process.env.AWS_S3_REGION });
 	const command = new PutObjectCommand({
-		Bucket: "quiqpost-uploader",
+		Bucket: process.env.BUCKET_NAME,
 		Key: key,
 	});
 
@@ -33,22 +32,3 @@ export const generatePutPresignedUrl = async (key) => {
 	console.log({ signedUrl });
 	return signedUrl;
 };
-// export function generatePresignedUrl(
-// 	bucketName = "geosnap-storage",
-// 	key,
-// 	expires = 200
-// ) {
-// 	const params = {
-// 		Bucket: bucketName,
-// 		Key: key,
-// 		Expires: expires,
-// 	};
-
-// 	try {
-// 		const url = s3.getSignedUrl("putObject", params);
-// 		return url;
-// 	} catch (error) {
-// 		console.error("Error generating pre-signed URL", error);
-// 		throw error;
-// 	}
-// }

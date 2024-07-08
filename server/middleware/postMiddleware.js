@@ -1,7 +1,7 @@
-import Post from "../models/PostModel.js"; // Update the path as needed
+import { Post } from "../models/PostModel.js"; // Update the path as needed
 
 // Middleware function to get a post by ID
-async function getPost(req, res, next) {
+export async function getPost(req, res, next) {
 	let post;
 	try {
 		post = await Post.findById(req.params.id);
@@ -15,5 +15,3 @@ async function getPost(req, res, next) {
 	res.post = post;
 	next();
 }
-
-export { getPost };
