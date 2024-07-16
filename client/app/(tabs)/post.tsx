@@ -33,7 +33,7 @@ const Page = () => {
 	const toast = useToast();
 
 	const post = async () => {
-		const response_id = await uploadPost("testupload", imageData, locationData);
+		const response_id = await uploadPost(imageData, locationData);
 
 		if (response_id) {
 			toast.show("Posted!", {
@@ -44,6 +44,12 @@ const Page = () => {
 			setImageData(null);
 
 			setLocationData({ location: "Add location", coordinates: [0, 0] });
+		} else {
+			toast.show("Something went wrong! please try again.", {
+				type: "danger",
+				placement: "top",
+				animationType: "slide-in",
+			});
 		}
 	};
 

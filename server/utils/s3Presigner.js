@@ -32,3 +32,18 @@ export const generatePutPresignedUrl = async (key) => {
 	console.log({ signedUrl });
 	return signedUrl;
 };
+
+export const generateGetPresignedUrl = async (key) => {
+	console.log({ key });
+	const s3Client = new S3Client({ region: process.env.AWS_S3_REGION });
+	const command = new GetObjectCommand({
+		Bucket: process.env.BUCKET_NAME,
+		Key: key,
+	});
+
+	const signedUrl = await getSignedUrl(s3Client, command, {
+		expiresIn: 3600,
+	});
+	console.log({ signedUrl });
+	return signedUrl;
+};

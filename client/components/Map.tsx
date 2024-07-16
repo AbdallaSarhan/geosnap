@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Mapbox, {
 	Camera,
 	CircleLayer,
@@ -14,12 +14,21 @@ import { featureCollection, point } from "@turf/helpers";
 import pin from "../assets/images/pin.png";
 
 import pointData from "../data/points.json";
-
+import { usePosts } from "@/hooks/usePosts";
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_KEY || "");
 
 const Map = () => {
-	const points = pointData.map((p) => point([p.long, p.lat]));
+	const { getAllPosts, posts } = usePosts();
+
+	// Convert posts data to Mapbox feature collection
+	const points = posts.map((post) =>
+		point(post.locationData.coordinates, { url: post.presignedUrl })
+	);
 	const imageFeatures = featureCollection(points);
+
+	useEffect(() => {
+		getAllPosts();
+	}, []);
 	return (
 		<View style={styles.container}>
 			<MapView style={{ flex: 1 }}>
@@ -54,13 +63,13 @@ const Map = () => {
 						id="image-icons"
 						filter={["!", ["has", "point_count"]]}
 						style={{
-							iconImage: "pin",
-							iconSize: 0.1,
+							iconImage: ["get", "url"],
+							iconSize: 0.4,
 							iconAllowOverlap: true,
 							iconAnchor: "bottom",
 						}}
 					/>
-					<Images images={{ pin }} />
+					{/* <Images images={{}} /> */}
 				</ShapeSource>
 			</MapView>
 		</View>
@@ -68,6 +77,8 @@ const Map = () => {
 };
 
 export default Map;
+
+// export default Map;
 
 const styles = StyleSheet.create({
 	container: {
